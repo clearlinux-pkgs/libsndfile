@@ -6,7 +6,7 @@
 #
 Name     : libsndfile
 Version  : 1.0.28
-Release  : 33
+Release  : 34
 URL      : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz
 Source0  : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz
 Source1  : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz.asc
@@ -14,6 +14,7 @@ Summary  : A library for reading and writing audio files
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: libsndfile-bin = %{version}-%{release}
+Requires: libsndfile-filemap = %{version}-%{release}
 Requires: libsndfile-lib = %{version}-%{release}
 Requires: libsndfile-license = %{version}-%{release}
 Requires: libsndfile-man = %{version}-%{release}
@@ -55,6 +56,7 @@ files containing sampled audio data.
 Summary: bin components for the libsndfile package.
 Group: Binaries
 Requires: libsndfile-license = %{version}-%{release}
+Requires: libsndfile-filemap = %{version}-%{release}
 
 %description bin
 bin components for the libsndfile package.
@@ -92,10 +94,19 @@ Requires: libsndfile-man = %{version}-%{release}
 doc components for the libsndfile package.
 
 
+%package filemap
+Summary: filemap components for the libsndfile package.
+Group: Default
+
+%description filemap
+filemap components for the libsndfile package.
+
+
 %package lib
 Summary: lib components for the libsndfile package.
 Group: Libraries
 Requires: libsndfile-license = %{version}-%{release}
+Requires: libsndfile-filemap = %{version}-%{release}
 
 %description lib
 lib components for the libsndfile package.
@@ -151,20 +162,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1598628747
+export SOURCE_DATE_EPOCH=1633757906
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -fzero-call-used-regs=used "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -fzero-call-used-regs=used "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -fzero-call-used-regs=used "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -fzero-call-used-regs=used "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 pushd ../build32/
-export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
 export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
@@ -174,11 +185,11 @@ make  %{?_smp_mflags}
 popd
 unset PKG_CONFIG_PATH
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=haswell"
-export CXXFLAGS="$CXXFLAGS -m64 -march=haswell"
-export FFLAGS="$FFLAGS -m64 -march=haswell"
-export FCFLAGS="$FCFLAGS -m64 -march=haswell"
-export LDFLAGS="$LDFLAGS -m64 -march=haswell"
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 %configure --disable-static
 make  %{?_smp_mflags}
 popd
@@ -194,7 +205,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1598628747
+export SOURCE_DATE_EPOCH=1633757906
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libsndfile
 cp %{_builddir}/libsndfile-1.0.28/COPYING %{buildroot}/usr/share/package-licenses/libsndfile/21c7a7d66a9430401a40a6f57bf212a6570b1819
@@ -206,9 +217,16 @@ pushd %{buildroot}/usr/lib32/pkgconfig
 for i in *.pc ; do ln -s $i 32$i ; done
 popd
 fi
+if [ -d %{buildroot}/usr/share/pkgconfig ]
+then
+pushd %{buildroot}/usr/share/pkgconfig
+for i in *.pc ; do ln -s $i 32$i ; done
+popd
+fi
 popd
 pushd ../buildavx2/
-%make_install_avx2
+%make_install_v3
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 popd
 %make_install
 ## install_append content
@@ -220,17 +238,6 @@ cp src/sndfile.hh %{buildroot}/usr/include/sndfile.hh
 
 %files bin
 %defattr(-,root,root,-)
-/usr/bin/haswell/sndfile-cmp
-/usr/bin/haswell/sndfile-concat
-/usr/bin/haswell/sndfile-convert
-/usr/bin/haswell/sndfile-deinterleave
-/usr/bin/haswell/sndfile-info
-/usr/bin/haswell/sndfile-interleave
-/usr/bin/haswell/sndfile-metadata-get
-/usr/bin/haswell/sndfile-metadata-set
-/usr/bin/haswell/sndfile-play
-/usr/bin/haswell/sndfile-regtest
-/usr/bin/haswell/sndfile-salvage
 /usr/bin/sndfile-cmp
 /usr/bin/sndfile-concat
 /usr/bin/sndfile-convert
@@ -242,12 +249,12 @@ cp src/sndfile.hh %{buildroot}/usr/include/sndfile.hh
 /usr/bin/sndfile-play
 /usr/bin/sndfile-regtest
 /usr/bin/sndfile-salvage
+/usr/share/clear/optimized-elf/bin*
 
 %files dev
 %defattr(-,root,root,-)
 /usr/include/sndfile.h
 /usr/include/sndfile.hh
-/usr/lib64/haswell/libsndfile.so
 /usr/lib64/libsndfile.so
 /usr/lib64/pkgconfig/sndfile.pc
 
@@ -261,12 +268,15 @@ cp src/sndfile.hh %{buildroot}/usr/include/sndfile.hh
 %defattr(0644,root,root,0755)
 %doc /usr/share/doc/libsndfile/*
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-libsndfile
+
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/haswell/libsndfile.so.1
-/usr/lib64/haswell/libsndfile.so.1.0.28
 /usr/lib64/libsndfile.so.1
 /usr/lib64/libsndfile.so.1.0.28
+/usr/share/clear/optimized-elf/lib*
 
 %files lib32
 %defattr(-,root,root,-)

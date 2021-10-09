@@ -1,21 +1,21 @@
-Configure miss: whether we are using the CLANG C compiler
-Configure miss: windres
 Configure miss: autogen
-Configure miss: wine
-Configure miss: xcode-select
-Configure miss: processor clipping capabilities
-Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
-Configure miss: whether we are using the CLANG C compiler
+Configure miss: autogen
+Configure miss: autogen
 Configure miss: i686-generic-linux-gnu-windres
-Configure miss: windres
-Configure miss: autogen
-Configure miss: wine
-Configure miss: xcode-select
-Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
-Configure miss: whether we are using the CLANG C compiler
-Configure miss: windres
-Configure miss: autogen
-Configure miss: wine
-Configure miss: xcode-select
+Configure miss: processor clipping capabilities
 Configure miss: processor clipping capabilities
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
+Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
+Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
+Configure miss: whether we are using the CLANG C compiler
+Configure miss: whether we are using the CLANG C compiler
+Configure miss: whether we are using the CLANG C compiler
+Configure miss: windres
+Configure miss: windres
+Configure miss: windres
+Configure miss: wine
+Configure miss: wine
+Configure miss: wine
+Configure miss: xcode-select
+Configure miss: xcode-select
+Configure miss: xcode-select
