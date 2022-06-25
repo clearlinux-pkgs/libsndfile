@@ -6,7 +6,7 @@
 #
 Name     : libsndfile
 Version  : 1.0.28
-Release  : 38
+Release  : 39
 URL      : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz
 Source0  : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz
 Source1  : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz.asc
@@ -162,7 +162,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656049586
+export SOURCE_DATE_EPOCH=1656133386
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -205,7 +205,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1656049586
+export SOURCE_DATE_EPOCH=1656133386
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libsndfile
 cp %{_builddir}/libsndfile-1.0.28/COPYING %{buildroot}/usr/share/package-licenses/libsndfile/21c7a7d66a9430401a40a6f57bf212a6570b1819
