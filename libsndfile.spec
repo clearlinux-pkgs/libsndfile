@@ -6,7 +6,7 @@
 #
 Name     : libsndfile
 Version  : 1.0.28
-Release  : 43
+Release  : 44
 URL      : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz
 Source0  : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz
 Source1  : http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz.asc
@@ -31,7 +31,6 @@ BuildRequires : libogg-dev
 BuildRequires : libogg-dev32
 BuildRequires : libvorbis-dev
 BuildRequires : libvorbis-dev32
-BuildRequires : octave-dev
 BuildRequires : pkg-config
 BuildRequires : sed
 BuildRequires : sqlite-autoconf-dev
@@ -162,7 +161,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656133386
+export SOURCE_DATE_EPOCH=1662771424
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -171,7 +170,7 @@ export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong
 export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
 export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used "
-%configure --disable-static
+%configure --disable-static --disable-octave
 make  %{?_smp_mflags}
 
 pushd ../build32/
@@ -180,7 +179,7 @@ export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
 export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
-%configure --disable-static  --disable-octave  --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+%configure --disable-static --disable-octave --disable-octave  --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
 unset PKG_CONFIG_PATH
@@ -190,7 +189,7 @@ export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
 export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
 export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
 export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
-%configure --disable-static
+%configure --disable-static --disable-octave
 make  %{?_smp_mflags}
 popd
 %check
@@ -205,10 +204,10 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1656133386
+export SOURCE_DATE_EPOCH=1662771424
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libsndfile
-cp %{_builddir}/libsndfile-1.0.28/COPYING %{buildroot}/usr/share/package-licenses/libsndfile/21c7a7d66a9430401a40a6f57bf212a6570b1819
+cp %{_builddir}/libsndfile-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libsndfile/21c7a7d66a9430401a40a6f57bf212a6570b1819
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -255,6 +254,7 @@ cp src/sndfile.hh %{buildroot}/usr/include/sndfile.hh
 %defattr(-,root,root,-)
 /usr/include/sndfile.h
 /usr/include/sndfile.hh
+/usr/lib64/glibc-hwcaps/x86-64-v3/libsndfile.so
 /usr/lib64/libsndfile.so
 /usr/lib64/pkgconfig/sndfile.pc
 
@@ -274,7 +274,6 @@ cp src/sndfile.hh %{buildroot}/usr/include/sndfile.hh
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsndfile.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsndfile.so.1
 /usr/lib64/glibc-hwcaps/x86-64-v3/libsndfile.so.1.0.28
 /usr/lib64/libsndfile.so.1
