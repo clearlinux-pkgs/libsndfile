@@ -1,5 +1,5 @@
 PKG_NAME := libsndfile
-URL = http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.28.tar.gz
+URL = https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz
 ARCHIVES = 
 
 include ../common/Makefile.common

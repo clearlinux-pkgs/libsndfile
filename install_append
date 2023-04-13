@@ -1,1 +1,0 @@
-cp src/sndfile.hh %{buildroot}/usr/include/sndfile.hh

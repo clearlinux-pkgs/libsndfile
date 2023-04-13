@@ -1,12 +1,14 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-flac-dev
-libvorbis-dev
-libogg-dev
-sqlite-autoconf-dev
-libvorbis-dev32
-flac-dev32
-libogg-dev32
-sqlite-autoconf-dev32
 alsa-lib-dev
 alsa-lib-dev32
+flac-dev
+flac-dev32
+libogg-dev
+libogg-dev32
+libvorbis-dev
+libvorbis-dev32
+opus-dev
+opus-dev32
+sqlite-autoconf-dev
+sqlite-autoconf-dev32
