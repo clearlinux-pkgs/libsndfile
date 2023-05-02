@@ -7,7 +7,7 @@
 #
 Name     : libsndfile
 Version  : 1.2.0
-Release  : 55
+Release  : 56
 URL      : https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz
 Source0  : https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz
 Source1  : https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz.asc
@@ -15,7 +15,6 @@ Summary  : A library for reading and writing audio files
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: libsndfile-bin = %{version}-%{release}
-Requires: libsndfile-filemap = %{version}-%{release}
 Requires: libsndfile-lib = %{version}-%{release}
 Requires: libsndfile-license = %{version}-%{release}
 Requires: libsndfile-man = %{version}-%{release}
@@ -54,7 +53,6 @@ files containing sampled audio data.
 Summary: bin components for the libsndfile package.
 Group: Binaries
 Requires: libsndfile-license = %{version}-%{release}
-Requires: libsndfile-filemap = %{version}-%{release}
 
 %description bin
 bin components for the libsndfile package.
@@ -92,19 +90,10 @@ Requires: libsndfile-man = %{version}-%{release}
 doc components for the libsndfile package.
 
 
-%package filemap
-Summary: filemap components for the libsndfile package.
-Group: Default
-
-%description filemap
-filemap components for the libsndfile package.
-
-
 %package lib
 Summary: lib components for the libsndfile package.
 Group: Libraries
 Requires: libsndfile-license = %{version}-%{release}
-Requires: libsndfile-filemap = %{version}-%{release}
 
 %description lib
 lib components for the libsndfile package.
@@ -150,15 +139,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1681426028
+export SOURCE_DATE_EPOCH=1683049721
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 %configure --disable-static --disable-octave
 make  %{?_smp_mflags}
 
@@ -193,7 +182,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1681426028
+export SOURCE_DATE_EPOCH=1683049721
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libsndfile
 cp %{_builddir}/libsndfile-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libsndfile/21c7a7d66a9430401a40a6f57bf212a6570b1819 || :
@@ -223,6 +212,16 @@ popd
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/sndfile-cmp
+/V3/usr/bin/sndfile-concat
+/V3/usr/bin/sndfile-convert
+/V3/usr/bin/sndfile-deinterleave
+/V3/usr/bin/sndfile-info
+/V3/usr/bin/sndfile-interleave
+/V3/usr/bin/sndfile-metadata-get
+/V3/usr/bin/sndfile-metadata-set
+/V3/usr/bin/sndfile-play
+/V3/usr/bin/sndfile-salvage
 /usr/bin/sndfile-cmp
 /usr/bin/sndfile-concat
 /usr/bin/sndfile-convert
@@ -233,13 +232,12 @@ popd
 /usr/bin/sndfile-metadata-set
 /usr/bin/sndfile-play
 /usr/bin/sndfile-salvage
-/usr/share/clear/optimized-elf/bin*
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libsndfile.so
 /usr/include/sndfile.h
 /usr/include/sndfile.hh
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsndfile.so
 /usr/lib64/libsndfile.so
 /usr/lib64/pkgconfig/sndfile.pc
 
@@ -253,14 +251,10 @@ popd
 %defattr(0644,root,root,0755)
 /usr/share/doc/libsndfile/*
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-libsndfile
-
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsndfile.so.1
-/usr/lib64/glibc-hwcaps/x86-64-v3/libsndfile.so.1.0.35
+/V3/usr/lib64/libsndfile.so.1
+/V3/usr/lib64/libsndfile.so.1.0.35
 /usr/lib64/libsndfile.so.1
 /usr/lib64/libsndfile.so.1.0.35
 
