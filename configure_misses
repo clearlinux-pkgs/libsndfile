@@ -1,21 +1,36 @@
 Configure miss: autogen
 Configure miss: autogen
 Configure miss: autogen
+Configure miss: g++ option to enable C++11 features
+Configure miss: g++ option to enable C++11 features
+Configure miss: g++ option to enable C++11 features
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: i686-generic-linux-gnu-file
 Configure miss: i686-generic-linux-gnu-windres
+Configure miss: lame/lame.h
+Configure miss: lame/lame.h
+Configure miss: lame/lame.h
+Configure miss: library containing lame_set_VBR_q
+Configure miss: library containing lame_set_VBR_q
+Configure miss: library containing lame_set_VBR_q
 Configure miss: processor clipping capabilities
 Configure miss: processor clipping capabilities
+Configure miss: whether configure should try to set CFLAGS/CXXFLAGS/CPPFLAGS/LDFLAGS
+Configure miss: whether configure should try to set CFLAGS/CXXFLAGS/CPPFLAGS/LDFLAGS
+Configure miss: whether configure should try to set CFLAGS/CXXFLAGS/CPPFLAGS/LDFLAGS
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
 Configure miss: whether to add -D_FORTIFY_SOURCE=2 to CPPFLAGS
-Configure miss: whether we are using the CLANG C compiler
-Configure miss: whether we are using the CLANG C compiler
-Configure miss: whether we are using the CLANG C compiler
 Configure miss: windres
 Configure miss: windres
 Configure miss: windres
 Configure miss: wine
 Configure miss: wine
 Configure miss: wine
+Configure miss: x86_64-generic-linux-gnu-file
+Configure miss: x86_64-generic-linux-gnu-file
 Configure miss: xcode-select
 Configure miss: xcode-select
 Configure miss: xcode-select
