@@ -6,11 +6,11 @@
 # Source0 file verified with key 0xCE36E117202E3842 (soap@gentoo.org)
 #
 Name     : libsndfile
-Version  : 1.2.0
-Release  : 60
-URL      : https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz
-Source0  : https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz
-Source1  : https://github.com/libsndfile/libsndfile/releases/download/1.2.0/libsndfile-1.2.0.tar.xz.asc
+Version  : 1.2.2
+Release  : 61
+URL      : https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz
+Source0  : https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz
+Source1  : https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz.asc
 Summary  : A library for reading and writing audio files
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -45,7 +45,6 @@ BuildRequires : sqlite-autoconf-dev32
 %define debug_package %{nil}
 
 %description
-This is libsndfile, 1.1.0
 libsndfile is a library of C routines for reading and writing
 files containing sampled audio data.
 
@@ -125,13 +124,13 @@ man components for the libsndfile package.
 
 
 %prep
-%setup -q -n libsndfile-1.2.0
-cd %{_builddir}/libsndfile-1.2.0
+%setup -q -n libsndfile-1.2.2
+cd %{_builddir}/libsndfile-1.2.2
 pushd ..
-cp -a libsndfile-1.2.0 build32
+cp -a libsndfile-1.2.2 build32
 popd
 pushd ..
-cp -a libsndfile-1.2.0 buildavx2
+cp -a libsndfile-1.2.2 buildavx2
 popd
 
 %build
@@ -139,7 +138,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685644828
+export SOURCE_DATE_EPOCH=1692026992
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -182,7 +181,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1685644828
+export SOURCE_DATE_EPOCH=1692026992
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libsndfile
 cp %{_builddir}/libsndfile-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libsndfile/21c7a7d66a9430401a40a6f57bf212a6570b1819 || :
@@ -252,14 +251,14 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libsndfile.so.1.0.35
+/V3/usr/lib64/libsndfile.so.1.0.37
 /usr/lib64/libsndfile.so.1
-/usr/lib64/libsndfile.so.1.0.35
+/usr/lib64/libsndfile.so.1.0.37
 
 %files lib32
 %defattr(-,root,root,-)
 /usr/lib32/libsndfile.so.1
-/usr/lib32/libsndfile.so.1.0.35
+/usr/lib32/libsndfile.so.1.0.37
 
 %files license
 %defattr(0644,root,root,0755)
