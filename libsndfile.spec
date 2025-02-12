@@ -7,7 +7,7 @@
 #
 Name     : libsndfile
 Version  : 1.2.2
-Release  : 61
+Release  : 62
 URL      : https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz
 Source0  : https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz
 Source1  : https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz.asc
